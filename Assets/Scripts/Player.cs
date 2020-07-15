@@ -17,11 +17,13 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private bool facingRight;
     private float horizontalValue;
+    private Collider2D collider;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        collider = GetComponent<Collider2D>();
     }
 
     private void Update()
@@ -39,11 +41,16 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if (isJump)
+        if (isJump && IsFloor())
         {
             rb.AddForce(new Vector2(0f, jumpForce));
             isJump = false;
         }
+    }
+
+    private bool IsFloor()
+    {
+        return collider.IsTouchingLayers(LayerMask.GetMask("Ground"));
     }
 
     private void FlipSprite()

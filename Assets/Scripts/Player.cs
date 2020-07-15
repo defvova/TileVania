@@ -6,24 +6,26 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
+    [SerializeField] private float acceleration = 500f;
+    [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;
+
     private Rigidbody2D rb;
     private bool facingRight;
     private float horizontalValue;
+    private Vector3 currentVelocity = Vector3.zero;
 
-    [SerializeField] private float acceleration = 712f;
-
-    private void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
     {
-        Run();
-        FlipSprite();
+        Move();
+        Flip();
     }
 
-    private void FlipSprite()
+    private void Flip()
     {
         if ((horizontalValue < 0 && !facingRight) || (horizontalValue > 0 && facingRight))
         {
@@ -32,11 +34,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Run()
+    private void Move()
     {
         horizontalValue = Input.GetAxisRaw("Horizontal");
-        Vector2 force = new Vector2(horizontalValue, rb.velocity.y);
+        float xSpeed = horizontalValue * acceleration * Time.fixedDeltaTime;
+        Vector3 targetVelocity = new Vector2(xSpeed, rb.velocity.y);
 
-        rb.AddForce(force * acceleration * Time.deltaTime);
+        rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref currentVelocity, movementSmoothing);
     }
 }

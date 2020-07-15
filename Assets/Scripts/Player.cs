@@ -6,10 +6,12 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float acceleration = 500f;
+    [SerializeField] private float acceleration = 600f;
+    [SerializeField] private float jumpForce = 1200f;
     [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;
 
     private Vector3 currentVelocity = Vector3.zero;
+    private bool isJump = false;
 
     private Animator animator;
     private Rigidbody2D rb;
@@ -22,11 +24,26 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private void Update()
+    {
+        if (Input.GetButtonDown("Jump")) isJump = true;
+    }
+
     private void FixedUpdate()
     {
         MovePlayer();
         MoveSprite();
         FlipSprite();
+        Jump();
+    }
+
+    private void Jump()
+    {
+        if (isJump)
+        {
+            rb.AddForce(new Vector2(0f, jumpForce));
+            isJump = false;
+        }
     }
 
     private void FlipSprite()

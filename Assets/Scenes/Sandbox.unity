@@ -3277,6 +3277,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6155433530197553677, guid: bf6e02b1b58937d479a2deaa7493a009,
+        type: 3}
+      propertyPath: acceleration
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 6155433530197553677, guid: bf6e02b1b58937d479a2deaa7493a009,
+        type: 3}
+      propertyPath: jumpForce
+      value: 1200
+      objectReference: {fileID: 0}
     - target: {fileID: 7544087329331445425, guid: bf6e02b1b58937d479a2deaa7493a009,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3331,11 +3341,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7544087329331445428, guid: bf6e02b1b58937d479a2deaa7493a009,
-        type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7544087329331445434, guid: bf6e02b1b58937d479a2deaa7493a009,
         type: 3}
